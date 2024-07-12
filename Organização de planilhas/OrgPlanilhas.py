@@ -1,0 +1,16 @@
+import pandas as pd
+
+df = pd.read_csv('Planilhas/VA  06_2024.csv', sep=';', encoding='latin-1')
+df1 = pd.read_csv('Planilhas/AUX HOME OFFICE 06_2024.csv', sep=';', encoding='latin-1')
+df2 = pd.read_csv('Planilhas/AUX MORADIA 06_2024.csv', sep=';', encoding='latin-1')
+df3 = pd.read_csv('Planilhas/AUX CRECHE 06_2024.csv', sep=';', encoding='latin-1')
+df = df.rename(columns={'Total' : 'VA'})
+df1 = df1.rename(columns={'Total' : 'HOME OFFICE'})
+df2 = df2.rename(columns={'Total' : 'MORADIA'})
+df3 = df3.rename(columns={'Total' : 'CRECHE'})
+df_final = pd.merge(df, df1, left_on='Nome Completo', right_on='Nome Completo', how='left')
+df_final = pd.merge(df_final, df2, left_on='Nome Completo', right_on='Nome Completo', how='left')
+df_final = pd.merge(df_final, df3, left_on='Nome Completo', right_on='Nome Completo', how='left')
+df_final.drop(columns=['Unnamed: 3', 'Unnamed: 2_x', 'Unnamed: 2_y'], inplace=True)
+df_final = df_final.dropna(subset=['Nome Completo'])
+df_final.to_excel('Planilhas/Auxilios e Va.xlsx', index=False)
