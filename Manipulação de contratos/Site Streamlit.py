@@ -100,7 +100,7 @@ col1, col2 = st.columns([0.4,1])
 def contrato_clube():
     with col1:
         y = 0
-        preencher = st.button(label='Salvar')
+        preencher = st.button(label='Preencher Campos')
         if preencher == True:
             for campo in campos_contrato:
                 if campo == '':
@@ -154,11 +154,12 @@ def contrato_clube():
                     paragrafo.text = paragrafo.text.replace('DATA_ASSINATURA', f"{campos_contrato_final['DATA_ASSINATURA']}")
                 if x < 18:
                     x += 1
-    con_clube.save("Manipulação de contratos\ CONTRATO  PREENCHIDO- CLUBE.docx")
+
+            con_clube.save("Manipulação de contratos\ CONTRATO  PREENCHIDO- CLUBE.docx")
 def contrato_domestica():
     with col1:
         y = 0
-        preencher = st.button(label='Salvar')
+        preencher = st.button(label='Preencher Campos')
         if preencher == True:
             for campo in campos_contrato:
                 if campo == '':
@@ -167,59 +168,7 @@ def contrato_domestica():
                     campos_contrato_final[campos_contrato_strings[y]] = (campo)
                     y += 1
             x = 0
-            for paragrafo in con_clube.paragraphs:
-                if '{{' in paragrafo.text:
-                    paragrafo.text = paragrafo.text.replace("{{", '')
-                if '}}' in paragrafo.text:
-                    paragrafo.text = paragrafo.text.replace("}}", '')
-                if 'RAZAO_SOCIAL' in paragrafo.text:
-                    paragrafo.text = paragrafo.text.replace('RAZAO_SOCIAL', f"{campos_contrato_final['RAZAO_SOCIAL']}")
-                if 'NOME_AVALISTA' in paragrafo.text:
-                    paragrafo.text = paragrafo.text.replace('NOME_AVALISTA', f"{campos_contrato_final['NOME_AVALISTA']}")
-                if 'CPF_AVALISTA' in paragrafo.text:
-                    paragrafo.text = paragrafo.text.replace('CPF_AVALISTA', f"{campos_contrato_final['CPF_AVALISTA']}")
-                if 'ENDERECO_AVALISTA' in paragrafo.text:
-                    paragrafo.text = paragrafo.text.replace('ENDERECO_AVALISTA', f"{campos_contrato_final['ENDERECO_AVALISTA']}")
-                if 'CEP_AVALISTA' in paragrafo.text:
-                    paragrafo.text = paragrafo.text.replace('CEP_AVALISTA', f"{campos_contrato_final['CEP_AVALISTA']}")
-                if 'VALOR_MENSAL' in paragrafo.text:
-                    paragrafo.text = paragrafo.text.replace('VALOR_MENSAL', f"{campos_contrato_final['VALOR_MENSAL']}")
-                if 'VALOR_POR_EXTENSO' in paragrafo.text:
-                    paragrafo.text = paragrafo.text.replace('VALOR_POR_EXTENSO', f"{campos_contrato_final['VALOR_POR_EXTENSO']}")
-                if 'QTD_FUN' in paragrafo.text:
-                    paragrafo.text = paragrafo.text.replace('QTD_FUN', f"{campos_contrato_final['QTD_FUNC']}")
-                if 'VALOR_FUN' in paragrafo.text:
-                    paragrafo.text = paragrafo.text.replace('VALOR_FUN', f"{campos_contrato_final['VALOR_FUNC']}")
-                if 'VALOR_POR_EXTENSO_FUN' in paragrafo.text:
-                    paragrafo.text = paragrafo.text.replace('VALOR_POR_EXTENSO_FUN', f"{campos_contrato_final['VALOR_POR_EXTENSO_FUNC']}")
-                if 'REGIME' in paragrafo.text:
-                    paragrafo.text = paragrafo.text.replace('REGIME', f"{campos_contrato_final['REGIME']}")
-                if 'QTD_FISCAL' in paragrafo.text:
-                    paragrafo.text = paragrafo.text.replace('QTD_FISCAL', f"{campos_contrato_final['QTD_FISCAL']}")
-                if 'QTD_CONTABIL' in paragrafo.text:
-                    paragrafo.text = paragrafo.text.replace('QTD_CONTABIL', f"{campos_contrato_final['QTD_CONTABIL']}")
-                if 'VENCIMENTO' in paragrafo.text:
-                    paragrafo.text = paragrafo.text.replace('VENCIMENTO', f"{campos_contrato_final['VENCIMENTO']}")
-                if 'DATA_VIGENCIA' in paragrafo.text:
-                    paragrafo.text = paragrafo.text.replace('DATA_VIGENCIA', f"{campos_contrato_final['DATA_VIGENCIA']}")
-                if 'DATA_ASSINATURA' in paragrafo.text:
-                    paragrafo.text = paragrafo.text.replace('DATA_ASSINATURA', f"{campos_contrato_final['DATA_ASSINATURA']}")
-                if x < 18:
-                    x += 1
-        con_domestica.save("Manipulação de contratos\ CONTRATO PREENCHIDO - DOMESTICA.docx")
-def contrato_padrão():
-    with col1:
-        y = 0
-        preencher = st.button(label='Salvar')
-        if preencher == True:
-            for campo in campos_contrato:
-                if campo == '':
-                    st.error('Todos os campos devem estar preenchidos.')
-                else:
-                    campos_contrato_final[campos_contrato_strings[y]] = (campo)
-                    y += 1
-            x = 0
-            for paragrafo in con_clube.paragraphs:
+            for paragrafo in con_domestica.paragraphs:
                 if '{{' in paragrafo.text:
                     paragrafo.text = paragrafo.text.replace("{{", '')
                 if '}}' in paragrafo.text:
@@ -264,11 +213,12 @@ def contrato_padrão():
                     paragrafo.text = paragrafo.text.replace('DATA_ASSINATURA', f"{campos_contrato_final['DATA_ASSINATURA']}")
                 if x < 18:
                     x += 1
-        con_padrao.save("Manipulação de contratos\ CONTRATO PREENCHIDO - PADRAO.docx")
-def contrato_permuta():
+                  
+            con_domestica.save("Manipulação de contratos\ CONTRATO PREENCHIDO - DOMESTICA.docx")
+def contrato_padrão():
     with col1:
         y = 0
-        preencher = st.button(label='Salvar')
+        preencher = st.button(label='Preencher Campos')
         if preencher == True:
             for campo in campos_contrato:
                 if campo == '':
@@ -277,7 +227,7 @@ def contrato_permuta():
                     campos_contrato_final[campos_contrato_strings[y]] = (campo)
                     y += 1
             x = 0
-            for paragrafo in con_clube.paragraphs:
+            for paragrafo in con_padrao.paragraphs:
                 if '{{' in paragrafo.text:
                     paragrafo.text = paragrafo.text.replace("{{", '')
                 if '}}' in paragrafo.text:
@@ -302,12 +252,12 @@ def contrato_permuta():
                     paragrafo.text = paragrafo.text.replace('VALOR_MENSAL', f"{campos_contrato_final['VALOR_MENSAL']}")
                 if 'VALOR_POR_EXTENSO' in paragrafo.text:
                     paragrafo.text = paragrafo.text.replace('VALOR_POR_EXTENSO', f"{campos_contrato_final['VALOR_POR_EXTENSO']}")
-                if 'QTD_FUN' in paragrafo.text:
-                    paragrafo.text = paragrafo.text.replace('QTD_FUN', f"{campos_contrato_final['QTD_FUNC']}")
-                if 'VALOR_FUN' in paragrafo.text:
-                    paragrafo.text = paragrafo.text.replace('VALOR_FUN', f"{campos_contrato_final['VALOR_FUNC']}")
-                if 'VALOR_POR_EXTENSO_FUN' in paragrafo.text:
-                    paragrafo.text = paragrafo.text.replace('VALOR_POR_EXTENSO_FUN', f"{campos_contrato_final['VALOR_POR_EXTENSO_FUNC']}")
+                if 'QTD_FUNC' in paragrafo.text:
+                    paragrafo.text = paragrafo.text.replace('QTD_FUNC', f"{campos_contrato_final['QTD_FUNC']}")
+                if 'VALOR_FUNC' in paragrafo.text:
+                    paragrafo.text = paragrafo.text.replace('VALOR_FUNC', f"{campos_contrato_final['VALOR_FUNC']}")
+                if 'VALOR_POR_EXTENSO_FUNC' in paragrafo.text:
+                    paragrafo.text = paragrafo.text.replace('VALOR_POR_EXTENSO_FUNC', f"{campos_contrato_final['VALOR_POR_EXTENSO_FUNC']}")
                 if 'REGIME' in paragrafo.text:
                     paragrafo.text = paragrafo.text.replace('REGIME', f"{campos_contrato_final['REGIME']}")
                 if 'QTD_FISCAL' in paragrafo.text:
@@ -322,7 +272,67 @@ def contrato_permuta():
                     paragrafo.text = paragrafo.text.replace('DATA_ASSINATURA', f"{campos_contrato_final['DATA_ASSINATURA']}")
                 if x < 18:
                     x += 1
-        con_permuta.save("Manipulação de contratos\ CONTRATO PREENCHIDO - PERMUTA.docx")
+
+            con_padrao.save("Manipulação de contratos\ CONTRATO PREENCHIDO - PADRAO.docx")
+def contrato_permuta():
+    with col1:
+        y = 0
+        preencher = st.button(label='Preencher Campos')
+        if preencher == True:
+            for campo in campos_contrato:
+                if campo == '':
+                    st.error('Todos os campos devem estar preenchidos.')
+                else:
+                    campos_contrato_final[campos_contrato_strings[y]] = (campo)
+                    y += 1
+            x = 0
+            for paragrafo in con_permuta.paragraphs:
+                if '{{' in paragrafo.text:
+                    paragrafo.text = paragrafo.text.replace("{{", '')
+                if '}}' in paragrafo.text:
+                    paragrafo.text = paragrafo.text.replace("}}", '')
+                if 'RAZAO_SOCIAL' in paragrafo.text:
+                    paragrafo.text = paragrafo.text.replace('RAZAO_SOCIAL', f"{campos_contrato_final['RAZAO_SOCIAL']}")
+                if 'CNPJ_CONTRATANTE' in paragrafo.text:
+                    paragrafo.text = paragrafo.text.replace('CNPJ_CONTRATANTE', f"{campos_contrato_final['CNPJ_CONTRATANTE']}")
+                if 'CEP_EMPRESA' in paragrafo.text:
+                    paragrafo.text = paragrafo.text.replace('CEP_EMPRESA', f"{campos_contrato_final['CEP_EMPRESA']}")
+                if 'ENDERECO_EMPRESA' in paragrafo.text:
+                    paragrafo.text = paragrafo.text.replace('ENDERECO_EMPRESA', f"{campos_contrato_final['ENDERECO_EMPRESA']}")
+                if 'NOME_AVALISTA' in paragrafo.text:
+                    paragrafo.text = paragrafo.text.replace('NOME_AVALISTA', f"{campos_contrato_final['NOME_AVALISTA']}")
+                if 'CPF_AVALISTA' in paragrafo.text:
+                    paragrafo.text = paragrafo.text.replace('CPF_AVALISTA', f"{campos_contrato_final['CPF_AVALISTA']}")
+                if 'ENDERECO_AVALISTA' in paragrafo.text:
+                    paragrafo.text = paragrafo.text.replace('ENDERECO_AVALISTA', f"{campos_contrato_final['ENDERECO_AVALISTA']}")
+                if 'CEP_AVALISTA' in paragrafo.text:
+                    paragrafo.text = paragrafo.text.replace('CEP_AVALISTA', f"{campos_contrato_final['CEP_AVALISTA']}")
+                if 'VALOR_MENSAL' in paragrafo.text:
+                    paragrafo.text = paragrafo.text.replace('VALOR_MENSAL', f"{campos_contrato_final['VALOR_MENSAL']}")
+                if 'VALOR_POR_EXTENSO' in paragrafo.text:
+                    paragrafo.text = paragrafo.text.replace('VALOR_POR_EXTENSO', f"{campos_contrato_final['VALOR_POR_EXTENSO']}")
+                if 'QTD_FUNC' in paragrafo.text:
+                    paragrafo.text = paragrafo.text.replace('QTD_FUNC', f"{campos_contrato_final['QTD_FUNC']}")
+                if 'VALOR_FUNC' in paragrafo.text:
+                    paragrafo.text = paragrafo.text.replace('VALOR_FUNC', f"{campos_contrato_final['VALOR_FUNC']}")
+                if 'VALOR_POR_EXTENSO_FUNC' in paragrafo.text:
+                    paragrafo.text = paragrafo.text.replace('VALOR_POR_EXTENSO_FUNC', f"{campos_contrato_final['VALOR_POR_EXTENSO_FUNC']}")
+                if 'REGIME' in paragrafo.text:
+                    paragrafo.text = paragrafo.text.replace('REGIME', f"{campos_contrato_final['REGIME']}")
+                if 'QTD_FISCAL' in paragrafo.text:
+                    paragrafo.text = paragrafo.text.replace('QTD_FISCAL', f"{campos_contrato_final['QTD_FISCAL']}")
+                if 'QTD_CONTABIL' in paragrafo.text:
+                    paragrafo.text = paragrafo.text.replace('QTD_CONTABIL', f"{campos_contrato_final['QTD_CONTABIL']}")
+                if 'VENCIMENTO' in paragrafo.text:
+                    paragrafo.text = paragrafo.text.replace('VENCIMENTO', f"{campos_contrato_final['VENCIMENTO']}")
+                if 'DATA_VIGENCIA' in paragrafo.text:
+                    paragrafo.text = paragrafo.text.replace('DATA_VIGENCIA', f"{campos_contrato_final['DATA_VIGENCIA']}")
+                if 'DATA_ASSINATURA' in paragrafo.text:
+                    paragrafo.text = paragrafo.text.replace('DATA_ASSINATURA', f"{campos_contrato_final['DATA_ASSINATURA']}")
+                if x < 18:
+                    x += 1
+
+            con_permuta.save("Manipulação de contratos\ CONTRATO PREENCHIDO - PERMUTA.docx")
 
 if ce == listaaquivos[0]:
     contrato_clube()
