@@ -11,12 +11,29 @@ conexao = mysql.connector.connect(
 )
 cursor = conexao.cursor()
 
-#Create
+# Create
 nome_produto = 'Mangá'
-valor = 47.99
+valor = 42
 comando = f'INSERT INTO vendas (nome_produto, valor) VALUES ("{nome_produto}", "{valor}")' #insere uma informação
-cursor.execute(comando)
-conexao.commit() #edita o banco de dados
+cursor.execute(comando) #executa o comando
+conexao.commit() #manda pra o banco de dados
 
-cursor.close()
-conexao.close()
+# Read
+comando = 'SELECT * FROM vendas'
+cursor.execute(comando)
+resultado = cursor.fetchall()
+print(resultado)
+
+# Update
+comando = 'UPDATE vendas SET valor = 2000 WHERE nome_produto = "Rolex"'
+cursor.execute(comando)
+conexao.commit()
+
+# Delete
+comando = 'DELETE FROM vendas WHERE idvendas = 3'
+cursor.execute(comando)
+conexao.commit()
+
+
+cursor.close() 
+conexao.close() # fecha a conexão com o banco de dados
