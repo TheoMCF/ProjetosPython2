@@ -12,29 +12,30 @@ conexao = py.connect(dados_conexao)
 cursor = conexao.cursor()
 
 st.set_page_config(page_title='CRUD.com')
+col1, col2, col3, col4 = st.columns(4, gap='small')
 st.title('Manilpulação de Dados SQL')
-choice = st.radio("O Que você quer fazer na tabela?", ["Visualizar Tabela","Adicionar Valores" ,"Mudar Valores", "Deletar Valores",])
-col1, col2 = st.columns([0.4,1])
+tab1, tab2, tab3, tab4 = st.tabs(["Visualizar Tabela","Adicionar Valores" ,"Mudar Valores", "Deletar Valores",])
 
-def clear_text():
-    x = ''
 def adicionar_valores():
-
     st.subheader("Preencha os dados para criar uma nova venda:")
+    st.write('Tabela Atual:')
+    visualizar_tabela()
     cliente = st.text_input("Nome do cliente: ")
     produto = st.text_input("Produto: ")
     data_venda = str(st.date_input('Data da venda: '))      
     preco = st.text_input('Preço do produto: ')
     quantidade = st.number_input('Quantidade de produtos: ', 0)
     idvenda = st.number_input('ID da venda: ', 0)
-    confirmar = st.button('Confirmar')
+    confirmar1 = st.button('Confirmar', key=1)
     
-    if confirmar:
+    if confirmar1:
         preco = float(preco)
         comando = f"INSERT INTO vendas (cliente, produto, data_venda, preco, quantidade, id_venda) VALUES ('{cliente}', '{produto}', '{data_venda}', {preco}, {quantidade}, {idvenda})"
         cursor.execute(comando)
         conexao.commit()
         st.success('Conexão Concluida!')
+        time.sleep(5)
+        st.rerun()
 def visualizar_tabela():
         clientes = []
         produtos = []
@@ -54,24 +55,26 @@ def visualizar_tabela():
             id.append(row[5])
         tr = len(resultado) + 1
 
+        id.sort()
+        
         df1 = pd.DataFrame()
         j = 0
         for i in range(1,tr):
-            linha = { "ID da venda": f"{id[j]}", "Cliente": f"{clientes[j]}", "Produto": f"{produtos[j]}", "Data da venda": f"{datas[j]}", "Preço" : f"{precos[j]}", "Quantidade" : f"{quantidade[j]}"}
+            linha = {"ID da venda": f"{id[j]}", "Cliente": f"{clientes[j]}", "Produto": f"{produtos[j]}", "Data da venda": f"{datas[j]}", "Preço" : f"{precos[j]}", "Quantidade" : f"{quantidade[j]}"}
             df1 = df1._append(linha, ignore_index = True)
             j +=1
-        st.dataframe(df1)
+        st.subheader('Tabela Atual')
+        st.dataframe(df1, hide_index=True)
 def mudar_valores():
-    x = ''
     col_int = ["preco", "quantidade"]
     st.subheader("Preencha os dados para fazer a alteração")
     st.write('Tabela Atual:')
     visualizar_tabela()
     
-    valor_antes = st.text_input('Valor a ser alterado:', key="1",value=x)
-    valor_depois = st.text_input("Esse valor será subistituido por:", key="2",value=x)
+    valor_antes = st.text_input('Valor a ser alterado:')
+    valor_depois = st.text_input("Esse valor será subistituido por:")
 
-    colunas = st.selectbox("Coluna onde ele está:", ("","Clientes", "Produto", "Data da venda", "Preço", "Quantidade"), key="3")
+    colunas = st.selectbox("Coluna onde ele está:", ("","Clientes", "Produto", "Data da venda", "Preço", "Quantidade", "ID da venda"))
     if colunas == "Clientes":
         colunas = "cliente"
     elif colunas == "Produto":
@@ -82,18 +85,19 @@ def mudar_valores():
         colunas = "preco"
     elif colunas == "Quantidade":
         colunas = "quantidade"
-
-    id = st.text_input('ID da venda:', key="4",value=x)
+    else:
+        colunas = "id_venda"
+    id = st.number_input('ID da venda:', 0)
     
     inputs = []
+    
     inputs.append(valor_antes)
     inputs.append(valor_depois)
     inputs.append(colunas)
     inputs.append(id)
-    print(inputs)
 
-    confirmar = st.button('Confirmar', on_click=clear_text)
-    if confirmar:
+    confirmar2 = st.button('Confirmar', key=2)
+    if confirmar2:
         valor_antes = inputs[0]
         valor_depois = inputs[1]
         colunas = inputs[2]
@@ -109,22 +113,31 @@ def mudar_valores():
         cursor.execute(comando)
         conexao.commit()
         st.success('Alterações concluidas com sucesso!')
-        clear_text()
         time.sleep(5)
         st.rerun()
 def deletar_valores():
-    st.subheader("Preencha os dados para fazer a alteração")
+    st.subheader("Deletar valores da tabela")
     st.write('Tabela Atual:')
     visualizar_tabela()
+
+    id = st.number_input('ID da linha que você quer deletar: ', 0 )
+
+    comando = f'DELETE FROM vendas WHERE id_venda = {id}'
+
+    confirmar3 = st.button('Confirmar', key=3)
     
-if choice == "Adicionar Valores":
-    adicionar_valores()
-        
-elif choice == "Visualizar Tabela":
+    if confirmar3:
+        cursor.execute(comando)
+        conexao.commit()
+        st.success('Alterações concluidas com sucesso!')
+        time.sleep(5)
+        st.rerun()
+
+with tab1:
     visualizar_tabela()
-
-elif choice == "Mudar Valores":
+with tab2:
+    adicionar_valores()
+with tab3:
     mudar_valores()
-
-else:
+with tab4:
     deletar_valores()
