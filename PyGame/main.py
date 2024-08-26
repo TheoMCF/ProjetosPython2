@@ -7,28 +7,41 @@ pygame.init()
 # Cria a tela
 pygame.display.set_caption('Primeiro Jogo Pygame') #"Título" da janela que irá ser aberta
 
+# LOOP PRINCIPAL DO JOGO
 run = True
 while run:
     clock.tick(FPS)
-    screen.fill(LIGHT_GREEN)
+    screen.fill(LIGHT_BLUE)
     pygame.draw.line(screen, BLUE, (0,300), (WIDTH, 300))
     
+    # Escreve texto
+    draw_text(F"AMMO: {player.ammo}", FONTE, WHITE, 50, 70)
+    
+    # Atualiza e desenha os jogadores e inimigos
     player.update()
     player.draw()
     for enemy in enemy_group:
         enemy.update()
         enemy.draw()   
-    
+
+    # Desenha as barras de vida e de mana
+    barra_de_vida.hp = player.health
+    barra_de_vida.draw(screen)
+    barra_de_mana.mana = player.mana
+    barra_de_mana.draw(screen)
+
     # Atualiza e desenha os projeteis
     arrow_group.update()
     magic_shot_group.update()
     magic_bomb_group.update()
     explosion_group.update()
+    items_group.update()
 
     arrow_group.draw(screen)
     magic_shot_group.draw(screen)
     magic_bomb_group.draw(screen)
     explosion_group.draw(screen)
+    items_group.draw(screen)
 
     if player.alive:
         if shoot:
