@@ -10,17 +10,25 @@ pygame.display.set_caption('Primeiro Jogo Pygame') #"Título" da janela que irá
 # LOOP PRINCIPAL DO JOGO
 run = True
 while run:
+
     clock.tick(FPS)
-    screen.fill(LIGHT_BLUE)
+    screen.fill(GRAY)
     pygame.draw.line(screen, BLUE, (0,300), (WIDTH, 300))
     
-    # Escreve texto
-    draw_text(F"AMMO: {player.ammo}", FONTE, WHITE, 50, 70)
-    
+    # Status
+    draw_text(F"Health:", FONTE, WHITE, 10, 15) # Vida
+    draw_text(F"Mana:", FONTE, WHITE, 13, 60) # Mana
+    draw_text(F"Bombs:", FONTE, WHITE, 9, 100) # Quantidade de bombas
+    x = 90
+    for i in range(player.qnt_magic_bombs):
+        screen.blit(magic_bomb_img, (x, 100))
+        x += 40
+
     # Atualiza e desenha os jogadores e inimigos
     player.update()
     player.draw()
     for enemy in enemy_group:
+        enemy.AI()
         enemy.update()
         enemy.draw()   
 
@@ -47,13 +55,11 @@ while run:
         if shoot:
             player.shoot()
         elif shoot_magic_bomb and thrown_magic_bomb == False and player.qnt_magic_bombs > 0:
-            # player.update_action(5) # Use Bomb 
             magic_bomb = Magic_Bomb_Class(player.rect.centerx + (player.rect.size[0] * 0.5 * player.direction),\
                                 player.rect.top, player.direction)
             magic_bomb_group.add(magic_bomb)
             player.qnt_magic_bombs -= 1
             thrown_magic_bomb = True
-            print(player.qnt_magic_bombs)
         elif player.in_air:
             player.update_action(4) # Jump
 
@@ -68,7 +74,7 @@ while run:
 
         if event.type == pygame.QUIT:
             run = False
-        if event.type == pygame.K_q:
+        if event.type == pygame.K_p:
             run = False
 
         if event.type == pygame.KEYDOWN:
@@ -77,18 +83,22 @@ while run:
             if event.key == pygame.K_d:
                 moving_right = True    
             if event.key == pygame.K_SPACE:
-                shoot = True
+                if moving_right:
+                    shoot = True
+                    moving_right = True
+                elif moving_left:
+                    shoot = True
+                    moving_left = True
+                else:
+                    shoot = True
             if event.key == pygame.K_f:
                 shoot_magic_bomb = True
             if event.key == pygame.K_w and player.alive:
                 player.jump = True
-            
-           
-                
-        if event.type == pygame.KEYUP:
+    
+        if event.type == pygame.KEYUP:  
             if event.key == pygame.K_a:
                 moving_left = False
-                Idle = True
             if event.key == pygame.K_d:
                 moving_right = False
             if event.key == pygame.K_SPACE:
