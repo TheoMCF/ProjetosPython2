@@ -1,0 +1,31 @@
+AnchorLayout:
+    anchor_x: 'center'
+    anchor_y: 'top'
+    Label: 
+        text: "ToDo List (Rairai deluxe edition)"
+        size_hint: (None, None)
+        size: self.texture_size
+    GridLayout:
+        id: gdt
+        anchor_y: 'bottom'
+        anchor_x: 'center'
+        rows: 2
+    
+    BoxLayout:        
+        TextInput:
+            id: i0
+            hint_text: "Digite a tarefa que você deseja adicionar:"
+            size_hint: (0.5 , 0.25)
+
+        Button:
+            text: "Confirmar tarefa"
+            size_hint: (0.5, 0.25)
+            on_press: app.criar_tarefa()
+        TextInput:
+            id: i1
+            hint_text: "Digite a tarefa que você deseja remover:"
+            size_hint: (0.5 , 0.25)
+        Button:
+            text: "Remover Tarefa"
+            size_hint: (0.5 , 0.25)
+            on_press: app.remover_tarefa()
