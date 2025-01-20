@@ -130,9 +130,6 @@ ENV/
 env.bak/
 venv.bak/
 
-# Ignorar credenciais
-App\credenciais_projeto.json
-Pdf to QRCODE\client_secrets.json
 # Spyder project settings
 .spyderproject
 .spyproject
@@ -164,3 +161,4 @@ cython_debug/
 #  option (not recommended) you can uncomment the following to ignore the entire idea folder.
 #.idea/
 App/credenciais_projeto.json
+Pdf to QRCODE\client_secrets.json
